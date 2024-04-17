@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>{{object.name}}</title>
+    </head>
+
+    <body>
+        <h1>{{object.recipe_name}}</h1>
+        <b>Ingredients: </b> {{object.ingredients}} <br>
+        <b>Cooking Time: </b> {{object.cooking_time}} <br>
+        <b>Difficulty: </b> {{object.get_difficulty_display}} <br>
+        <img src="{{object.pic.url}}" width="200" height="300" />
+        <p>Notes: </p> {{object.note}} <br>
+    </body>
+
+</html>

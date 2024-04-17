@@ -1,18 +1,41 @@
 <!DOCTYPE html>
+{% load static %}
+
 
 <html>
-    <head>
-        <title>
-            Welcome to Recipes
-        </title>
-    </head>
 
-    <body>
-        <h1>
-            Welcome to the Recipe Lounge
-        </h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        </p>
-    </body>
+<head>
+    <title>
+        Welcome to Recipes
+    </title>
+</head>
+
+<body>
+    <h1>Recipe List</h1>
+
+    <table border="1" cellpadding="5" cellspacing="5">
+        <tr>
+            <td>Recipe Names</td>
+            <td>Recipe Ingredients</td>
+            <td>Recipe Cooking Time</td>
+            <td>Recipe Difficulty</td>
+            <td>Recipe Images</td>
+        </tr>
+        {% for recipe in recipe_list %}
+        <tr>
+            <td> 
+                <a href="{{recipe.get_absolute_url}}">
+                    {{recipe.recipe_name}}
+                </a>
+            </td>
+            <td>{{recipe.ingredients}}</td>
+            <td>{{recipe.cooking_time}}</td>
+            <td>{{recipe.get_difficulty_display}}</td>
+            <td><img src="{{recipe.pic.url}}" width="150" height="200" /></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
 </html>

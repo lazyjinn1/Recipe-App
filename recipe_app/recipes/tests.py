@@ -66,6 +66,10 @@ class RecipeTests(TestCase):
     def test_difficulty_max_length(self):
         recipe = Recipe.objects.get(id=1)
         max_length = recipe._meta.get_field('difficulty').max_length
-        self.assertEqual(max_length, 20)
+        self.assertEqual(max_length, 15)
+
+    def test_get_absolute_url(self):
+        recipe = Recipe.objects.get(id=1)
+        self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
     
