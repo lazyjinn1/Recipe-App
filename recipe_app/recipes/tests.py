@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Recipe
+from django.shortcuts import reverse
 
 class RecipeTests(TestCase):
     def setUpTestData():
@@ -70,6 +71,10 @@ class RecipeTests(TestCase):
 
     def test_get_absolute_url(self):
         recipe = Recipe.objects.get(id=1)
+        self.assertEqual(recipe.get_absolute_url(), '/list/1')
+
+    def test_open_omelette(self):
+        recipe = Recipe.objects.get(recipe_name='Egg and Mushroom Omelette')
         self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
     
