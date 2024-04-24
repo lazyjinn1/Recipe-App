@@ -1,9 +1,25 @@
-html{
-    scroll-behavior: smooth;
-}
 body{
     background: radial-gradient(#e66465, #9198e5);
     overflow-x: hidden;
+}
+
+button{
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
+    transition: all .7s ease;
+}
+
+button:hover{
+    background-color: black;
+    color: rgb(167, 73, 245);
+    transform: scale(1.2);
+}
+button:active{
+    background-color: black;
+    color: rgb(167, 73, 245);
+    transform: scale(1);
 }
 
 .recipe-card{
