@@ -1,5 +1,7 @@
 body{
     background: radial-gradient(#e66465, #9198e5);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     overflow: hidden;
     max-width: 100vw;
     max-height: 100vh;

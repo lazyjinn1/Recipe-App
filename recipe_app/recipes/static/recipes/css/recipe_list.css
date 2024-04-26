@@ -1,6 +1,9 @@
 body{
     background: radial-gradient(#e66465, #9198e5);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     overflow-x: hidden;
+    max-width: 100vw;
 }
 
 button{
