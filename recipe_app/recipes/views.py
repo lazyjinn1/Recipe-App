@@ -1,44 +1,51 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 from .models import Recipe
-#to protect class-based view
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .forms import SearchRecipeForm
-from .utils import get_recipename_from_id, get_chart
-import pandas as pd # type: ignore
-
+from .utils import get_countOfAll_recipes
 
 @login_required
 def search_view(request):
     form = SearchRecipeForm(request.POST or None)
     recipes_df = None
-    chart = None   
 
     if request.method == 'POST':
-        recipe_name = request.POST.get('recipe_name')
-        chart_type = request.POST.get('chart_type')
+        search_name = request.POST.get('recipe_name')
+        search_by_ingredient = request.POST.get('ingredients')
+        search_difficulty = request.POST.get('difficulty')
+        search_max_cooking_time = request.POST.get('max_cooking_time')
+        search_min_cooking_time = request.POST.get('min_cooking_time')
 
-        qs=Recipe.objects.filter(recipe_name=recipe_name)
-        if qs:
-           recipes_df=pd.DataFrame(qs.values()) 
-           recipes_df['id'].apply(get_recipename_from_id)
-           chart=get_chart(chart_type, recipes_df, labels=recipes_df['cooking_time'].values)
+        all_recipes_qs = Recipe.objects.all()
+        if all_recipes_qs:
+            filters = {}
+            if search_name:
+                filters['recipe_name'] = search_name
+            if search_by_ingredient:
+                filters['ingredients_contains'] = search_by_ingredient
+            if search_difficulty:
+                filters['difficulty'] = search_difficulty
+            if search_max_cooking_time:
+                filters['cooking_time_max'] = search_max_cooking_time
+            if search_min_cooking_time:
+                filters['cooking_time_min'] = search_min_cooking_time
 
-           recipes_df=recipes_df.to_html()
+            filtered_recipes = all_recipes_qs.filter(**filters)
+            recipes_df = filtered_recipes.values()
 
-    context={
+    context = {
         'form': form,
         'recipes_df': recipes_df,
-        'chart': chart
     }
-    
+
     return render(request, 'recipes/recipes_search.html', context)
 
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     template_name = 'recipes/recipes_list.html'
 
-class RecipeDetailView(LoginRequiredMixin, DetailView):                     
-   model = Recipe                                        
-   template_name = 'recipes/recipes_detail.html'  
+class RecipeDetailView(LoginRequiredMixin, DetailView):
+    model = Recipe
+    template_name = 'recipes/recipes_detail.html'
