@@ -11,6 +11,24 @@
     </head>
 
     <body>
+        <section class = "navbar">
+            <a href="/recipes/home">
+                <button>Home</button>
+            </a>
+            <a href ="{%url 'logout' %}"> 
+                <button>Logout</button>  
+            </a>
+            <form method="get" action="{% url 'recipes:recipes_search' %}">
+                {{ form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+            <form method="get" action="{% url 'recipes:charts_search' %}">
+                {{ form.as_p }}
+                <button type="submit">Analytics</button>
+            </form>
+        </section>
+
+
         <div class = "recipe-card">
             <div class = "recipe-card-content">
                 <div class = "recipe-card-details">
@@ -20,7 +38,10 @@
                     <b>Difficulty: </b> {{object.get_difficulty_display}} <br>
                     <b>Notes: </b> <p>{{object.note}}</p> <br>
                     <a href="/recipes/home">
-                        <button>Return</button>
+                        <button>Home</button>
+                    </a>
+                    <a href="/recipes/search">
+                        <button>Search</button>
                     </a>
                 </div>
                 <div class = "recipe-card-image">

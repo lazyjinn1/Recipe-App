@@ -9,7 +9,10 @@
     </head>
 
     <body>
-        <section class = "footer">
+        <section class = "navbar">
+            <a href="/recipes/home">
+                <button>Home</button>
+            </a>
             <a href ="{%url 'logout' %}"> 
                 <button>Logout</button>  
             </a>
@@ -17,15 +20,12 @@
                 {{ form.as_p }}
                 <button type="submit">Search</button>
             </form>
-            <select>
-                <option value="#1">Bar Chart</option>
-                <option value="#2">Pie Chart</option>
-                <option value="#3">Line Chart</option>
-            </select>
-            <button type="submit">Choose Chart</button>
+            <form method="get" action="{% url 'recipes:charts_search' %}">
+                {{ form.as_p }}
+                <button type="submit">Analytics</button>
+            </form>
         </section>
 
-        
         <section class = "main-recipe-section" id="main-section">
             <h1>Recipe List</h1>
             <div class = "recipe-list">

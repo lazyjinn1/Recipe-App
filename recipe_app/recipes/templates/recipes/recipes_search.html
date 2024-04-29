@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="../../static/recipes/css/recipe_search.css">
 </head>
 <body>
+    <section class = "navbar">
+        <a href="/recipes/home">
+            <button>Home</button>
+        </a>
+        <a href ="{%url 'logout' %}"> 
+            <button>Logout</button>  
+        </a>
+    </section>
     <form action="" method="POST">
         <h1>Search for Recipes</h1>
         {% csrf_token %}
@@ -33,7 +41,7 @@
         </div>
         <button type="submit">Search</button>
     </form>
-    
+       
     <div class="recipe-list">
         {% for recipe in recipes %}
             <div class="recipe-square">

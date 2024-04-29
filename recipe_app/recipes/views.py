@@ -3,7 +3,9 @@ from django.shortcuts import render
 from .models import Recipe
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import SearchRecipeForm
+from .forms import SearchRecipeForm, DataVisualizationForm
+import pandas as pd
+from .utils import get_chart
 
 @login_required
 def search_view(request):
@@ -34,6 +36,35 @@ def search_view(request):
     else:
         form = SearchRecipeForm()
     return render(request, 'recipes/recipes_search.html', {'form': form})
+
+@login_required
+def charts_view(request):
+    form = DataVisualizationForm(request.POST or None)
+    recipes_df = None
+    chart = None
+    if request.method =='POST':
+       chart_type = request.POST.get('chart_type')
+
+       #apply filter to extract data
+       qs = Recipe.objects.all()
+       if qs:      #if data found
+           #convert the queryset values to pandas dataframe
+           recipes_df=pd.DataFrame(qs.values()) 
+           #call get_chart by passing chart_type from user input, sales dataframe and labels
+           chart=get_chart(chart_type, recipes_df)
+
+          #convert the dataframe to HTML
+           recipes_df=recipes_df.to_html()
+
+    context = {
+        'form': form,
+        'recipes_df': recipes_df,
+        'chart': chart
+    }
+
+    return render(request, 'recipes/recipes_analytics.html', context)
+
+
 
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
