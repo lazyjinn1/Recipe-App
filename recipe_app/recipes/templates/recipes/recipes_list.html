@@ -13,7 +13,19 @@
             <a href ="{%url 'logout' %}"> 
                 <button>Logout</button>  
             </a>
+            <form method="get" action="{% url 'recipes:recipes_search' %}">
+                {{ form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+            <select>
+                <option value="#1">Bar Chart</option>
+                <option value="#2">Pie Chart</option>
+                <option value="#3">Line Chart</option>
+            </select>
+            <button type="submit">Choose Chart</button>
         </section>
+
+        
         <section class = "main-recipe-section" id="main-section">
             <h1>Recipe List</h1>
             <div class = "recipe-list">

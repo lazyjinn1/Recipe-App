@@ -47,29 +47,29 @@ def get_graph():
 #data: pandas dataframe
 def get_chart(chart_type, data, **kwargs):
    #switch plot backend to AGG (Anti-Grain Geometry) - to write to file
-   #AGG is preferred solution to write PNG files
-   plt.switch_backend('AGG')
+#    #AGG is preferred solution to write PNG files
+#    plt.switch_backend('AGG')
 
-   #specify figure size
-   fig=plt.figure(figsize=(6,3))
+#    #specify figure size
+#    fig=plt.figure(figsize=(6,3))
 
-   #select chart_type based on user input from the form
-   if chart_type == '#1':
-       #plot bar chart between date on x-axis and quantity on y-axis
-       plt.bar(data['ingredients'], data['number_of_recipes'])
+#    #select chart_type based on user input from the form
+#    if chart_type == '#1':
+#        #plot bar chart between date on x-axis and quantity on y-axis
+#        plt.bar(data['ingredients'], data['number_of_recipes'])
 
-   elif chart_type == '#2':
-       #generate pie chart based on the difficulty.
-       plt.pie(data['cooking_time'], labels=difficulty_choices)
+#    elif chart_type == '#2':
+#        #generate pie chart based on the difficulty.
+#        plt.pie(data['cooking_time'], labels=difficulty_choices)
 
-   elif chart_type == '#3':
-       #plot line chart based on date on x-axis and price on y-axis
-       plt.plot(data['difficulty'], data['cooking_time'])
-   else:
-       print ('unknown chart type')
+#    elif chart_type == '#3':
+#        #plot line chart based on date on x-axis and price on y-axis
+#        plt.plot(data['difficulty'], data['cooking_time'])
+#    else:
+#        print ('unknown chart type')
 
-   #specify layout details
-   plt.tight_layout()
+#    #specify layout details
+#    plt.tight_layout()
 
    #render the graph to file
    chart = get_graph() 
