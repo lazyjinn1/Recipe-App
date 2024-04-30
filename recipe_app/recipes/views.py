@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .forms import SearchRecipeForm, DataVisualizationForm
 import pandas as pd
-from .utils import get_chart
+from .utils import get_chart, get_all_ingredients
 
 @login_required
 def search_view(request):
@@ -50,8 +50,9 @@ def charts_view(request):
        if qs: #if data found
            #convert the queryset values to pandas dataframe
            recipes_df=pd.DataFrame(qs.values()) 
+           all_ingredients = get_all_ingredients()
            #call get_chart by passing chart_type from user input, sales dataframe and labels
-           chart=get_chart(chart_type, recipes_df, labels=recipes_df['difficulty'].values)
+           chart=get_chart(chart_type, recipes_df, all_ingredients)
            #convert the dataframe to HTML
            recipes_df=recipes_df.to_html()
 
