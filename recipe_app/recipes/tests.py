@@ -76,5 +76,3 @@ class RecipeTests(TestCase):
     def test_open_omelette(self):
         recipe = Recipe.objects.get(recipe_name='Egg and Mushroom Omelette')
         self.assertEqual(recipe.get_absolute_url(), '/list/1')
-
-    
