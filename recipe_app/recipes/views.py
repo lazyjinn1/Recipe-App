@@ -47,13 +47,12 @@ def charts_view(request):
 
        #apply filter to extract data
        qs = Recipe.objects.all()
-       if qs:      #if data found
+       if qs: #if data found
            #convert the queryset values to pandas dataframe
            recipes_df=pd.DataFrame(qs.values()) 
            #call get_chart by passing chart_type from user input, sales dataframe and labels
-           chart=get_chart(chart_type, recipes_df)
-
-          #convert the dataframe to HTML
+           chart=get_chart(chart_type, recipes_df, labels=recipes_df['difficulty'].values)
+           #convert the dataframe to HTML
            recipes_df=recipes_df.to_html()
 
     context = {

@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib as mpl
 
-difficulty_choices = ['Easy', 'Medium', 'Intermediate', 'Hard']
-
+cooking_time_range = [0.0, 25.0, 50.0, 75.0, 100.0]
 
 def get_graph():
     buffer = BytesIO() #create a BytesIO buffer for the image     
@@ -18,35 +17,35 @@ def get_graph():
     buffer.close() #free up the memory of buffer
     return graph #return the image/graph
 
-def get_line_chart(data):
-    plt.plot(difficulty_choices, data['cooking_time'])
-    return
+# def get_pie_chart(data):
+#     plt.figure(figsize=(8, 6))
+#     plt.pie(data, labels=data['difficulty'], autopct='%1.1f%%', startangle=140)
+#     plt.axis('equal')
+#     plt.show()
+#     return
 
-def get_pie_chart(data):
-    labels = difficulty_choices
-    plt.pie(data['cooking_time'], labels=labels)
-    return
-
-def get_bar_chart(data):
-    plt.bar(data['ingredients'], data['quantity'])
-    return
 
 def get_chart(chart_type, data, **kwargs):
    plt.switch_backend('AGG')
 
    #specify figure size
-   fig = plt.figure(figsize=(6,3))
-
+   fig, ax = plt.subplots(figsize=(11,5))
+   
    #select chart_type based on user input from the form
    if chart_type == 'line':
-        get_line_chart()
+        plt.title("Cooking Time by Recipe")
+        ax.plot(data['recipe_name'], data['cooking_time'], "or-")
+        ax.set_xticklabels(data['recipe_name'], rotation=90)
+        ax.set_yticks(data['cooking_time'])
 
    elif chart_type == 'pie':
-        get_pie_chart()
+        plt.title("Cooking Time by Recipe")
 
    elif chart_type == 'bar':
-        get_bar_chart()
-
+        plt.title("Cooking Time by Recipe")
+        ax.bar(data['recipe_name'], data['cooking_time'])
+        ax.set_xticklabels(data['recipe_name'], rotation=90)
+        ax.set_yticks(data['cooking_time'])
    else:
         print ('unknown chart type')
 
