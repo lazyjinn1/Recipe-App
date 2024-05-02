@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import Recipe
-from django.shortcuts import reverse
+from django.urls import reverse
 
 class RecipeTests(TestCase):
     def setUpTestData():
@@ -15,7 +15,7 @@ class RecipeTests(TestCase):
     def test_recipe_name(self):
         recipe = Recipe.objects.get(id=1)
         field_label = recipe._meta.get_field('recipe_name').verbose_name
-        self.assertEqual(field_label, 'recipe name')
+        self.assertEqual(field_label, 'Recipe Name')
 
     def test_recipe_name_max_length(self):
         recipe = Recipe.objects.get(id=1)
@@ -71,8 +71,23 @@ class RecipeTests(TestCase):
 
     def test_get_absolute_url(self):
         recipe = Recipe.objects.get(id=1)
-        self.assertEqual(recipe.get_absolute_url(), '/list/1')
+        self.assertEqual(recipe.get_absolute_url(), '/recipes/1')
 
     def test_open_omelette(self):
         recipe = Recipe.objects.get(recipe_name='Egg and Mushroom Omelette')
-        self.assertEqual(recipe.get_absolute_url(), '/list/1')
+        self.assertEqual(recipe.get_absolute_url(), '/recipes/1')
+
+class RecipeFormTest(TestCase):
+    def setUpTestData():
+         Recipe.objects.create(
+            recipe_name = 'Egg and Mushroom Omelette',
+            ingredients = 'Eggs, Salt, Butter, Mushrooms, Basil, Bell Peppers',
+            cooking_time = 8.5,
+            difficulty = 'Easy',
+            note='This is the ingredient entry for Eggs, not the Recipe.'
+        )
+         
+    def test_login(self):
+        response = self.client.post("/login/", data={"username": "administrator", "password": "password"})
+        self.assertEqual(response.status_code, 200)
+         
