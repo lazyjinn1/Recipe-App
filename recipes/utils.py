@@ -52,7 +52,7 @@ def get_chart(chart_type, data, all_ingredients, **kwargs):
                     ingredients_count[ingredient] = 0
                 ingredients_count[ingredient] += 1
                 
-        sorted_ingredients = sorted(ingredients_count.keys())
+        sorted_ingredients = sorted(ingredients_count.keys(), key=lambda x: ingredients_count[x])
         print(sorted_ingredients)
         
         x = np.arange(len(all_ingredients))
@@ -75,7 +75,7 @@ def get_chart(chart_type, data, all_ingredients, **kwargs):
    elif chart_type == 'bar':
         plt.title("Cooking Time by Recipe")
         ax.bar(data['recipe_name'], data['cooking_time'])
-        ax.set_xticklabels(data['recipe_name'], rotation=50)
+        ax.set_xticklabels(data['recipe_name'], rotation=90)
         ax.set_yticks(data['cooking_time'])
    else:
         print ('unknown chart type')
