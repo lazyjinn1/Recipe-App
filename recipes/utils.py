@@ -52,7 +52,7 @@ def get_chart(chart_type, data, all_ingredients, **kwargs):
                     ingredients_count[ingredient] = 0
                 ingredients_count[ingredient] += 1
                 
-        sorted_ingredients = sorted(ingredients_count.keys(), key=lambda x: ingredients_count[x])
+        sorted_ingredients = sorted(ingredients_count.keys())
         print(sorted_ingredients)
         
         x = np.arange(len(all_ingredients))
