@@ -1,11 +1,12 @@
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Recipe
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .forms import SearchRecipeForm, DataVisualizationForm
 import pandas as pd
 from .utils import get_chart, get_all_ingredients
+from .forms import CreateRecipeForm
 
 @login_required
 def search_view(request):
@@ -64,7 +65,16 @@ def charts_view(request):
 
     return render(request, 'recipes/recipes_analytics.html', context)
 
-
+@login_required
+def create_recipe(request):
+    if request.method == 'POST':
+        form = CreateRecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:home')
+    else:
+        form = CreateRecipeForm()
+    return render(request, 'recipes/recipes_create.html', {'form': form})
 
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe

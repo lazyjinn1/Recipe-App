@@ -24,6 +24,10 @@
                 {{ form.as_p }}
                 <button type="submit">Analytics</button>
             </form>
+            <form method="get" action="{% url 'recipes:create_recipe' %}">
+                {{ form.as_p }}
+                <button type="submit">Add New Recipe</button>
+            </form>
         </section>
 
         <section class = "main-recipe-section" id="main-section">
