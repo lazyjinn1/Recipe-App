@@ -174,3 +174,9 @@ button:active{
 .dropdown:hover .dropdown-content{
     display:block;
 }
+
+.footer{
+    float: right;
+    border-top: black 2px solid;
+    padding: 3px 15px;
+}
